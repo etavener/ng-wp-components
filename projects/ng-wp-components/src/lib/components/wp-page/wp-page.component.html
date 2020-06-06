@@ -1,0 +1,6 @@
+<ng-container *ngIf="page$ | async as page">
+  <ng-template [ngTemplateOutlet]="template"
+               [ngTemplateOutletContext]="{ page: page }">
+  </ng-template>
+</ng-container>
+

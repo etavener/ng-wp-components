@@ -1,0 +1,9 @@
+<ng-container *ngIf="media$ | async as media">
+  <ng-template [ngTemplateOutlet]="template"
+               [ngTemplateOutletContext]="{
+                media: media,
+                image: media.media_details.sizes[ size ]
+                }">
+  </ng-template>
+</ng-container>
+

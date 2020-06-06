@@ -1,0 +1,15 @@
+{
+  "name": "ng-wp-components",
+  "version": "0.0.1",
+  "scripts": {
+    "build": "ng build ng-wp-components --prod",
+    "publish": "npm publish"
+  },
+  "peerDependencies": {
+    "@angular/common": "^9.1.9",
+    "@angular/core": "^9.1.9"
+  },
+  "dependencies": {
+    "tslib": "^1.10.0"
+  }
+}

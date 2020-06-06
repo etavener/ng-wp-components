@@ -1,0 +1,7 @@
+<ng-container *ngIf="menu$ | async as menu">
+  <ng-container *ngFor="let menuItem of menu">
+    <ng-template [ngTemplateOutlet]="template"
+                 [ngTemplateOutletContext]="{ menuItem: menuItem }">
+    </ng-template>
+  </ng-container>
+</ng-container>
