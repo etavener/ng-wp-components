@@ -8,6 +8,9 @@ import { Observable } from 'rxjs';
 })
 export class WpPostListComponent implements OnChanges {
 
+  @Input() page = 1;
+  @Input() order: 'asc' | 'desc' = 'desc';
+  @Input() orderBy = 'date';
   @Input() limit = 100;
   @Input() category: string;
   @ContentChild(TemplateRef, { static: false } ) template: TemplateRef<any>;
@@ -18,7 +21,7 @@ export class WpPostListComponent implements OnChanges {
   ) { }
 
   ngOnChanges(): void {
-    this.posts$ = this.wordpressService.getPosts( this.category, this.limit );
+    this.posts$ = this.wordpressService.getPosts( this.category, this.limit, this.orderBy, this.order, this.page );
   }
 
 }

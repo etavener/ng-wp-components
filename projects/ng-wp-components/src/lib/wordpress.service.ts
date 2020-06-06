@@ -3,20 +3,18 @@ import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { WordpressURL } from './config.service';
 
-const WORDPRESS = `https://wp.learnario.com`;
-
 @Injectable({
   providedIn: 'root'
 })
 export class WordpressService {
 
   constructor(
-    @Inject( WordpressURL ) private wordpress,
+    @Inject( WordpressURL ) private wordpressURL: string,
     private http: HttpClient
   ) { }
 
   getWordpress( path: string = '' ) {
-    return this.http.get( `${WORDPRESS}/wp-json${path}` );
+    return this.http.get( `${this.wordpressURL}/wp-json${path}` );
   }
 
   getWordpressInfo() {
@@ -34,8 +32,16 @@ export class WordpressService {
     return this.getWordpress( `/wp/v2/media/${id}`);
   }
 
-  getPosts( category: string, limit: number = 100 ) {
-    return this.getWordpress(`/wp/v2/posts?categories=${category}&per_page=${limit}` );
+  getPosts(
+    category: string,
+    limit: number = 100,
+    orderby: string = 'date',
+    order: 'asc' | 'desc' = 'desc',
+    page: number = 1
+  ) {
+    return this.getWordpress(
+      `/wp/v2/posts?categories=${category}&per_page=${limit}&orderby=${orderby}&order=${order}&page=${page}`
+    );
   }
 
   getPostBySlug( slug: string ) {
@@ -49,8 +55,8 @@ export class WordpressService {
     return this.getWordpress(`/menus/v1/menus/${id}` )
       .pipe(
         map( (response: any) => response.items.map( item => {
-          if ( item.url.startsWith(WORDPRESS) ) {
-            item.url = item.url.replace( WORDPRESS, '' );
+          if ( item.url.startsWith(this.wordpressURL) ) {
+            item.url = item.url.replace( this.wordpressURL, '' );
           }
           if ( item.url.includes( homeSlug ) ){
             item.url = '/';

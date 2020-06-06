@@ -1,7 +1,5 @@
 # NgWordpressComponents
 
-This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.9.
-
 This is a set of simple wordpress components that provide access to wordpress data without markup.
 
 These were originally developed to be used in Scully.io for static use.
@@ -23,7 +21,7 @@ import { NgWpComponentsModule } from 'ng-wp-components';
   ...
   imports: [
     ...
-    NgWpComponentsModule.forRoot( 'https://wp.learnario.com' ),
+    NgWpComponentsModule.forRoot( 'https://my-wordpress-site.com' ),
   ]
 })
 export class Module { }
@@ -68,38 +66,14 @@ This example uses both `wp-post` and `wp-image`:
 
 ## Display Wordpress Image by id
 
-Can be used inside a page or post to display the image.
+Displays a `medium` image with an id of `10`. Size is the wordpress sizes.
 ```html
-<wp-image size="medium" [mediaId]="post.featured_media"></wp-image>
-```
-
-## Display List of Wordpress Posts by category id
-
-For every post it will create a section with content:
-```html
-<wp-post-list category="2">
-  <ng-template let-post="post">
-    <section [id]="post.slug">
-      <h2>{{ post.title.rendered }}</h2>
-      <div [innerHTML]="post.excerpt.rendered"></div>
-    </section>
+<wp-image size="medium" mediaId="10">
+  <ng-template let-image="image" let-media="media">
+    <img [src]="image.source_url" [alt]="media.alt_text" />
   </ng-template>
-</wp-post-list>
+</wp-image>
 ```
-
-For every post it will create a link with title linking to the slug:
-```html
-<wp-post-list class="list-group" category="2">
-  <ng-template let-post="post">
-    <a routerLink="."
-       [fragment]="post.slug">
-      {{ post.title.rendered }}
-    </a>
-  </ng-template>
-</wp-post-list>
-```
-
-
 
 ## A Wordpress Menu by id
 
@@ -135,6 +109,85 @@ By default the menu will assume your home page slug is 'home'. However, you can 
   </ng-template>
 </wp-menu>
 ```
+
+## Display List of Wordpress Posts 
+
+### All
+```html
+<wp-post-list>
+  <ng-template let-post="post">
+    <section [id]="post.slug">
+      <h2>{{ post.title.rendered }}</h2>
+      <div [innerHTML]="post.excerpt.rendered"></div>
+    </section>
+  </ng-template>
+</wp-post-list>
+```
+
+### filtered by category id
+For every post it will create a section with content:
+```html
+<wp-post-list category="2">
+  <ng-template let-post="post">
+    <section [id]="post.slug">
+      <h2>{{ post.title.rendered }}</h2>
+      <div [innerHTML]="post.excerpt.rendered"></div>
+    </section>
+  </ng-template>
+</wp-post-list>
+```
+
+For every post it will create a link with title linking to the slug:
+```html
+<wp-post-list category="2">
+  <ng-template let-post="post">
+    <a routerLink="."
+       [fragment]="post.slug">
+      {{ post.title.rendered }}
+    </a>
+  </ng-template>
+</wp-post-list>
+```
+
+### ordered
+You can also order your list (by default they are ordered by date desc)
+```html
+<wp-post-list orderBy="date" order="desc" category="2">
+  <ng-template let-post="post">
+    <a routerLink="."
+       [fragment]="post.slug">
+      {{ post.title.rendered }}
+    </a>
+  </ng-template>
+</wp-post-list>
+```
+### limited
+You can limit your list (by default they are limited to 100 which is the max allowed by Wordpress)
+```html
+<wp-post-list limit="10" category="2">
+  <ng-template let-post="post">
+    <a routerLink="."
+       [fragment]="post.slug">
+      {{ post.title.rendered }}
+    </a>
+  </ng-template>
+</wp-post-list>
+```
+### paged
+You can get a specific page (default is 1).
+In this example posts 11 to 20 will be displayed.
+```html
+<wp-post-list limit="10" page="2" category="2">
+  <ng-template let-post="post">
+    <a routerLink="."
+       [fragment]="post.slug">
+      {{ post.title.rendered }}
+    </a>
+  </ng-template>
+</wp-post-list>
+```
+
+
 
 
 ## A More complex example
@@ -176,23 +229,25 @@ export class PostComponent implements OnInit {
 
  post.component.html:
 ```html
-<div class="container">
-  <wp-post [slug]="slug$ | async" class="row">
+  <wp-post [slug]="slug$ | async">
     <ng-template let-post="post">
-      <div class="col-8">
-        <wp-page slug="about">
-          <ng-template let-page="page">
-            <h1 class="display-1">
-              {{ post.title.rendered }}
-            </h1>
-            <p class="mb-4" [innerHTML]="post.content.rendered"></p>
-          </ng-template>
-        </wp-page>
-      </div>
-      <div class="col-4">
-        <wp-image size="medium" [mediaId]="post.featured_media"></wp-image>
-      </div>
+      <h1>
+        {{ post.title.rendered }}
+      </h1>
+      <p [innerHTML]="post.content.rendered"></p>
+      <wp-post slug="about">
+        <ng-template let-about="post">
+          <h2>
+            {{ about.title.rendered }}
+          </h2>
+          <p [innerHTML]="about.content.rendered"></p>
+        </ng-template>
+      </wp-post>
+      <wp-image size="medium" [mediaId]="post.featured_media">
+        <ng-template let-image="image" let-media="media">
+          <img [src]="image.source_url" [alt]="media.alt_text" />
+        </ng-template>
+      </wp-image>
     </ng-template>
   </wp-post>
-</div>
 ```
