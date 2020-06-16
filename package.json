@@ -4,7 +4,8 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
+    "build": "ng build --prod",
+    "publish": "npm publish dist/ng-wp-components",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"

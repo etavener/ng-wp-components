@@ -1,10 +1,27 @@
 {
   "name": "ng-wp-components",
   "version": "0.0.4",
+  "description": "A Wordpress component library for easy and flexible integration",
+  "author": "Ewan Tavener",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/etavener/ng-wp-components"
+  },
+  "bugs": {
+    "url": "https://github.com/etavener/ng-wp-components/issues"
+  },
+  "homepage": "https://github.com/etavener/ng-wp-components",
   "scripts": {
     "build": "ng build ng-wp-components --prod",
     "publish": "npm publish"
   },
+  "keywords": [
+    "wordpress",
+    "api",
+    "typescript",
+    "angular",
+    "components"
+  ],
   "peerDependencies": {
     "@angular/common": "^9.1.9",
     "@angular/core": "^9.1.9"

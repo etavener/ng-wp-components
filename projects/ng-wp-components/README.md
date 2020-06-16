@@ -266,6 +266,7 @@ export class PostComponent implements OnInit {
 ```
 
 ## SEO
+Requires Yoast plugin to be installed on Wordpress site.
 
 Apply Yoast seo data to your page with slug 'home':
 ```html
