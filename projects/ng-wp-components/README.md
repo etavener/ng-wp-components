@@ -251,3 +251,28 @@ export class PostComponent implements OnInit {
     </ng-template>
   </wp-post>
 ```
+
+
+## Pagination
+```html
+<wp-paginator category="1" type="posts" itemsPerPage="20">
+    <ng-template let-items="items" let-pages="pages">
+        <a *ngFor="let page of pages" 
+           [routerLink]="[ 'item', page ]">
+        {{ page }}
+        </a>
+    </ng-template>
+</wp-paginator>
+```
+
+## SEO
+
+Apply Yoast seo data to your page with slug 'home':
+```html
+<wp-yoast slug="home" type="page"></wp-yoast>
+```
+
+Apply Yoast seo data to your post with slug 'home':
+```html
+<wp-yoast slug="home" type="page"></wp-yoast>
+```

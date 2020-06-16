@@ -1,0 +1,4 @@
+<div *ngIf="seo$ | async as seo" >
+  <div *ngIf="debug">{{ seo }}</div>
+  <ng-content></ng-content>
+</div>

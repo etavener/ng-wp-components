@@ -13,8 +13,8 @@ export class WordpressService {
     private http: HttpClient
   ) { }
 
-  getWordpress( path: string = '' ) {
-    return this.http.get( `${this.wordpressURL}/wp-json${path}` );
+  getWordpress( path: string = '', options: any = { observe: 'body' } ) {
+    return this.http.get( `${this.wordpressURL}/wp-json${path}`, options );
   }
 
   getWordpressInfo() {
@@ -64,6 +64,39 @@ export class WordpressService {
           return item;
         }) )
       );
+  }
+
+  getPagination(
+    category: string,
+    type: 'pages' | 'posts',
+    limit = 100,
+  ) {
+    return this.getWordpress(
+      `/wp/v2/${type}?categories=${category}&per_page=${limit}`,
+      { observe: 'response' }
+    ).pipe(
+      map( (response: any) => {
+        if ( response.headers ) {
+          const totalPages = response.headers.get( 'X-WP-TotalPages' );
+          const total = response.headers.get( 'X-WP-Total' );
+          const pages = [];
+          for ( let p = 0; p < totalPages; p++ ) {
+            pages.push( p );
+          }
+          return {
+            items: total,
+            pages,
+          };
+        }
+        return null;
+      })
+    );
+  }
+
+  getYoastBySlug( slug: string, type: 'page' | 'post' ) {
+    return this.getWordpress(`/wp/v2/${type}s?slug=${slug}`).pipe(
+      map( response => response[ 0 ] )
+    );
   }
 
 }

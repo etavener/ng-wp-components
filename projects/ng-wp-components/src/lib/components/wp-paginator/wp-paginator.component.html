@@ -1,0 +1,5 @@
+<ng-container *ngIf="$pagination | async as pagination">
+  <ng-template [ngTemplateOutlet]="template"
+               [ngTemplateOutletContext]="{ items: pagination.items, total: pagination.total  }">
+  </ng-template>
+</ng-container>

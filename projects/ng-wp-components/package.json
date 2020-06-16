@@ -1,6 +1,6 @@
 {
   "name": "ng-wp-components",
-  "version": "0.0.1",
+  "version": "0.0.4",
   "scripts": {
     "build": "ng build ng-wp-components --prod",
     "publish": "npm publish"
