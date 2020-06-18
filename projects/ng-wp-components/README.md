@@ -83,7 +83,7 @@ Each menu item is automatically converted to a relative link.
 
 The wordpress URL is removed from all links for that they become relative.
 ```html
-<wp-menu menuId="6">
+<wp-menu menuId="1">
   <ng-template let-menuItem="menuItem">
     <a routerLinkActive="active"
        [routerLinkActiveOptions]="{ exact:true }"
@@ -99,7 +99,7 @@ The menu will automatically change these home page links to be '/'.
 
 By default the menu will assume your home page slug is 'home'. However, you can change this by doing:
 ```html
-<wp-menu menuId="6" homeSlug="home-page">
+<wp-menu menuId="1" homeSlug="home-page">
   <ng-template let-menuItem="menuItem">
     <a routerLinkActive="active"
        [routerLinkActiveOptions]="{ exact:true }"
