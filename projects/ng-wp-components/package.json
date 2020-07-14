@@ -1,6 +1,6 @@
 {
   "name": "ng-wp-components",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "A Wordpress component library for easy and flexible integration",
   "author": "Ewan Tavener",
   "repository": {
@@ -23,8 +23,8 @@
     "components"
   ],
   "peerDependencies": {
-    "@angular/common": "^9.1.9",
-    "@angular/core": "^9.1.9"
+    "@angular/common": ">9.1.9",
+    "@angular/core": ">9.1.9"
   },
   "dependencies": {
     "tslib": "^1.10.0"
